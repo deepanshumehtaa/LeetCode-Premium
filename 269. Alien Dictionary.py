@@ -59,6 +59,69 @@ class Solution:
                     queue.append(neighbor)
         return ''.join(result) if len(result) == len(indegree) else ''
 
+    
+# ........................................................................................................
+"""
+
+build the list
+words = ["wrt","wrf","er","ett","rftt"]
+first_word: wrt, second_word: wrf
+do not add w == w
+do not add r == r
+do not add t == f
+add t---> f
+first_word: wrf, second_word: er
+do not add w == e
+add w---> e
+first_word: er, second_word: ett
+do not add e == e
+do not add r == t
+add r---> t
+first_word: ett, second_word: rftt
+do not add e == r
+add e---> r
+{'w': [], 'r': ['e'], 't': ['r'], 'f': ['t'], 'e': ['w']}
+
+"""
+
+class Solution:
+    def alienOrder(self, words: List[str]) -> str:
+        # build the list
+        adj_list = {c : [] for word in words for c in word}
+           # Step 1: Find all edges and put them in adj_list.
+        for first_word, second_word in zip(words, words[1:]):
+            for c, d in zip(first_word, second_word):
+                if c != d: 
+                    adj_list[d].append(c)
+                    break
+            else: # Check that second word isn't a prefix of first word.
+                if len(second_word) < len(first_word): 
+                    return ""
+        
+        
+        seen , cycle = set(),set()
+        output = []
+        def dfs(node): 
+            if node in cycle:
+                return False
+            if node in seen: # no issue no need to visit again , we visit node more then once
+                return True
+            
+            cycle.add(node)
+            for per in adj_list[node]:
+                if dfs(per) == False: # return result 
+                    return False
+            cycle.remove(node)
+            seen.add(node)
+            output.append(node)
+                
+        
+        for c in adj_list:
+            if dfs(c) == False: # found a cycle 
+                return ""
+        return "".join(output)
+    
+ # ......................................................................................
 
 class Solution:
     def alienOrder(self, words):
