@@ -29,11 +29,41 @@ Output: ""
 Explanation: The order is invalid, so return "".
 """
 
+class Solution:
+    def alienOrder(self, words):
+        """Python BFS"""
+
+        indegree = {key: 0 for key in ''.join(words)}
+        adjList = collections.defaultdict(list)
+
+        for i in range(len(words) - 1):
+            w1, w2 = words[i], words[i + 1]
+            minLen = min(len(w1), len(w2))
+            if len(w1) > len(w2) and w1[:minLen] == w2[:minLen]:
+                return ""
+            for j in range(minLen):
+                if w1[j] != w2[j]:
+                    adjList[w1[j]].append(w2[j])                    
+                    indegree[w2[j]] += 1                        
+                    break
+
+        queue = collections.deque([k for k in indegree if indegree[k] == 0])
+
+        result = []
+        while queue:
+            letter = queue.popleft()
+            result.append(letter)
+            for neighbor in adjList[letter]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
+        return ''.join(result) if len(result) == len(indegree) else ''
+
 
 class Solution:
     def alienOrder(self, words):
         # Get all unique_chars
-        
+
         unique_chars, dict1 = set(), {}
         
         for i, word in enumerate(words):
@@ -60,7 +90,6 @@ class Solution:
         for i in dict1:
             for j in dict1[i]:
                 dict2[j] += 1
-                
                 
         for i in unique_chars:
             if dict2[i] == 0:
