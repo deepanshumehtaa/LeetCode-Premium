@@ -1,3 +1,11 @@
+"""
+using greedy approach. 
+We start by buying the cheapest package of apples until we have enough to satisfy our daily requirement. 
+
+If the cheapest package is too big, we can buy only as much as we need and store the rest for future days. 
+We repeat this process for each day until we have enough apples.
+"""
+
 from heapq import heappop, heappush
 
 def minimumCost(N: int, K: int, apples: List[int]) -> int:
