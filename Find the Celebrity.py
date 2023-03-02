@@ -107,7 +107,7 @@ def set_solution(self, n):
     candidates = {i for i in range(n)}  # set, why add & remove by element is faster
     while len(candidates) > 1:
         iterator = iter(candidates)  # `iter` returns `iterator object` on which you can use `next()`
-        a = next(iterator)
+        a = next(iterator)  # we can't access index that is why we use genrator concept
         b = next(iterator)
         if knows(a, b):
             candidates.remove(a)  # once you change the size of set, then you need to create new iter obejct, that is why `iter` is in loop
