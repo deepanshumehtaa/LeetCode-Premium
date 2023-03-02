@@ -86,7 +86,7 @@ def stack_sol(self, n) -> int:
     return candidate
 
 
-def linear_time_sol(self, n):
+def graph_sol(self, n):
     # assuming 0th is celeb
     celeb = 0
     for i in range(1, n):
