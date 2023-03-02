@@ -1,5 +1,11 @@
 """
-
+This problem can be solved with:
+- Array
+- Two Pointers
+- Stack
+- Greedy
+- Graph
+- Divide and Conquer
 """
 
 # knows is the API already defined by LeetCode which tells
