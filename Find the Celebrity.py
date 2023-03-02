@@ -15,6 +15,12 @@ class Solution:
     """
     Q: [[1,0,1],[1,1,0],[0,1,1]]
     A: -1
+    How?
+    [
+        [1,0,1], --> [<knows himself>, <dont know 2nd person>, <know 3rd person>]
+        [1,1,0], --> [<knows 1st person>, <knows himself>, <don't know 3rd person>]
+        [0,1,1], --> [<dont know 2nd person>, <knows himself>, <know 3rd person>]
+     ]
 
     Best solved with stack_sol
     """
