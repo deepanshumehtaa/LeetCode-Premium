@@ -87,6 +87,7 @@ def stack_sol(self, n) -> int:
 
 
 def graph_sol(self, n):
+    """using the concept of Directed Graph"""
     # assuming 0th is celeb
     celeb = 0
     for i in range(1, n):
@@ -102,13 +103,14 @@ def graph_sol(self, n):
 
 
 def set_solution(self, n):
+    """Using Set as Stack"""
     candidates = {i for i in range(n)}  # set, why add & remove by element is faster
     while len(candidates) > 1:
-        iterator = iter(candidates)  #
+        iterator = iter(candidates)  # `iter` returns `iterator object` on which you can use `next()`
         a = next(iterator)
         b = next(iterator)
         if knows(a, b):
-            candidates.remove(a)
+            candidates.remove(a)  # once you change the size of set, then you need to create new iter obejct, that is why `iter` is in loop
         else:
             candidates.remove(b)
     c = next(iter(candidates))
