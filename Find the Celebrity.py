@@ -59,9 +59,9 @@ def findCelebrity(self, n: int) -> int:
     # return self.linear_time_sol(n)
     # return self.set_solution(n)
 
-
 def stack_sol(self, n) -> int:
-    stack = [i for i in range(n)]
+    """BEST"""
+    stack = list(range(n))
 
     while (len(stack) >= 2):
         p1, p2 = stack.pop(), stack.pop()
@@ -71,19 +71,10 @@ def stack_sol(self, n) -> int:
         else:
             stack.append(p1)
 
-    candidate = stack.pop()
+    celebrity = stack.pop()
 
     for i in range(n):
-        if i == candidate:
-            continue
-
-        elif knows(i, candidate) is True and knows(candidate, i) is False:
-            continue
-
-        elif knows(i, candidate) is False:
-            return -1
-
-        elif knows(candidate, i) is True:
+        if i != celebrity or (knows(i, celebrity) is False or knows(celebrity, i) is True):
             return -1
 
     return candidate
