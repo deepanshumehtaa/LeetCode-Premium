@@ -3,22 +3,39 @@ Given an array of strings words and an integer k, return the k most frequent str
 
 Return the answer sorted by the frequency from highest to lowest. Sort the words with the same frequency by their lexicographical order.
 
-["i","love","leetcode","i","love","coding"]
-2
+["i", "love", "leetcode", "i", "love", "coding", "and", "love", "you", ]
+
+o/p: ['love', 'i', 'leetcode']
 """
 
 from collections import Counter
 from heapq import nsmallest
 
 
-class Solution:
-    def topKFrequent(self, words: List[str], k: int) -> List[str]:
-        """
-        Max Heap
-        Time Complexity: O(N + k\log{N})O(N+klogN)
-        """
-        cnt = Counter(words)
-        return nsmallest(k, cnt.keys(), key=lambda x: (-cnt[x], x))
+def topKFrequent(words: List[str], k: int) -> List[str]:
+    """
+    Max Heap
+    Time Complexity: O(N + k\log{N})O(N+klogN)
+    """
+    cnt = Counter(words)
+    return heapq.nsmallest(n=k, iterable=cnt.keys(), key=lambda x: (-cnt[x], x))
+
+
+def topKFrequent1(words: List[str], k: int) -> List[str]:
+    """
+    the classic way with MAX heap
+    """
+    cnt = Counter(words)
+    
+    h = []
+    for key, freq in cnt.items():
+        heapq.heappush(h, (-freq, key))
+        if len(h) > k:
+            h.pop(-1)  # equivalent to `pop()`
+
+    h.sort(key=lambda x: -x[0], reverse=True)
+    return [i for _, i in h]
+
     
     
 """Min Heap"""
