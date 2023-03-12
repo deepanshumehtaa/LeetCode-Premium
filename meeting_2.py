@@ -58,7 +58,10 @@ class Solution:
         
         return res
     
-    def best_priority_queue(self, arr):
+    def using_heap(self, arr):
+        """
+        we are only saving the endtime in the heap.
+        """
         arr.sort(key = lambda x : x[0])
         pq = []
         
@@ -72,6 +75,24 @@ class Solution:
                 print(">>>")
         
         return count
+    
+    def best_priority_queue(arr):
+        """we are only saving the endtime in the heap."""
+        arr.sort(key=lambda x: x[0])
+        pq = []
+
+        max_ = 1
+        for start, end in arr:
+            if pq:
+                if pq[0] > start:  # overlapping condition
+                    heapq.heappush(pq, end)
+                    max_ = max(max_, len(pq))
+                else:
+                    heapq.heappop(pq)  # no overlapping meand smallest meeting has been over.
+            else:
+                pq.append(end)  # appending end time
+
+        return max_
     
     def priority_queue1(self, intervals):
         """
